@@ -1,0 +1,14 @@
+.completed{
+    text-decoration: line-through;
+    color: black;
+
+}
+button.remove{
+    margin-left: 10px;
+    background-color: antiquewhite;
+    color: brown;
+    padding: 4px 8px;
+    cursor: pointer;
+
+
+}
