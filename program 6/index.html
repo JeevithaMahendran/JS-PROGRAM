@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📝 Stylish To-Do List</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Orbitron", sans-serif;
+        background: linear-gradient(135deg, #1f1c2c, #928dab);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+      }
+
+      h1 {
+        font-size: 2.5em;
+        color: #00ffe5;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px #00ffe5;
+      }
+
+      input[type="text"] {
+        padding: 10px 15px;
+        width: 250px;
+        border: 2px solid #00ffe5;
+        border-radius: 8px;
+        outline: none;
+        font-size: 1em;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        transition: 0.3s;
+      }
+
+      input[type="text"]:focus {
+        box-shadow: 0 0 15px #00ffe5;
+      }
+
+      button {
+        padding: 10px 20px;
+        margin-left: 10px;
+        background: linear-gradient(90deg, #00ffe5, #00c3ff);
+        color: #000;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+      }
+
+      button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px #00ffe5, 0 0 25px #00c3ff;
+      }
+
+      ul {
+        list-style: none;
+        margin-top: 30px;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      li {
+        background: rgba(255, 255, 255, 0.1);
+        margin-bottom: 12px;
+        padding: 12px 15px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: 0.3s;
+        border-left: 5px solid #00ffe5;
+      }
+
+      li:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.02);
+      }
+
+      .completed {
+        text-decoration: line-through;
+        color: #ccc;
+        opacity: 0.6;
+      }
+
+      .remove {
+        background-color: #ff4d4d;
+        color: #fff;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.85em;
+        transition: 0.2s;
+      }
+
+      .remove:hover {
+        background-color: #cc0000;
+      }
+
+      @media (max-width: 500px) {
+        input[type="text"] {
+          width: 180px;
+        }
+
+        button {
+          margin-top: 10px;
+          margin-left: 0;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📝 My To-Do List</h1>
+    <div>
+      <input type="text" id="taskInput" placeholder="Enter new task..." />
+      <button onclick="addTask()">Add Task</button>
+    </div>
+    <ul id="output"></ul>
+
+    <script>
+      function addTask() {
+        let taskText = document.getElementById("taskInput").value.trim();
+        if (taskText !== "") {
+          let li = document.createElement("li");
+          li.textContent = taskText;
+
+          // Add toggle completed on click
+          li.addEventListener("click", function () {
+            li.classList.toggle("completed");
+          });
+
+          // Remove button
+          const removeBtn = document.createElement("button");
+          removeBtn.textContent = "Remove";
+          removeBtn.className = "remove";
+          removeBtn.addEventListener("click", function (e) {
+            e.stopPropagation(); // Don't toggle completion
+            li.remove();
+          });
+
+          li.appendChild(removeBtn);
+          document.getElementById("output").appendChild(li);
+
+          // Clear input
+          document.getElementById("taskInput").value = "";
+        }
+      }
+    </script>
+  </body>
+</html>
