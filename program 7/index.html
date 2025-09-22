@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WATCH</title>
+    <style>
+        /* Global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Body and background */
+        body {
+            background: linear-gradient(135deg, #b794ce, #6294ce);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            font-size: 16px;
+            overflow: hidden;
+        }
+
+        /* Container for centering content */
+        .container {
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            background-color: rgba(62, 71, 69, 0.7); /* Slightly darker background */
+            box-shadow: 0 15px 30px rgba(54, 50, 50, 0.4);
+        }
+
+        /* Styling for the counter */
+        #counter {
+            font-size: 5em;
+            margin: 20px 0;
+            font-weight: bold;
+            letter-spacing: 5px;
+            text-shadow: 2px 2px 5px rgba(54, 45, 45, 0.7);
+        }
+
+        /* Button styles */
+        button {
+            background-color: #bd3e3e;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 4px 8px rgba(165, 124, 124, 0.3);
+        }
+
+        /* Hover effect for buttons */
+        button:hover {
+            background-color: #da6969;
+            transform: translateY(-3px); /* Lift effect */
+        }
+
+        button:active {
+            background-color: #7aaed8;
+            transform: translateY(1px); /* Pressed effect */
+        }
+
+        /* Align buttons horizontally */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Stopwatch</h2>
+        <p id="counter">00:00</p>
+        <div class="buttons">
+            <button onclick="start()">Start</button>
+            <button onclick="stop()">Stop</button>
+            <button onclick="reset()">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        let count = 0;
+        let intervalId;
+
+        function start() {
+            if (!intervalId) {
+                intervalId = setInterval(() => {
+                    count++;
+                    document.getElementById("counter").textContent = formatTime(count);
+                }, 1000);
+            }
+        }
+
+        function stop() {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+
+        function reset() {
+            count = 0;
+            document.getElementById("counter").textContent = formatTime(count);
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+        }
+
+        // Format the time to display in MM:SS format
+        function formatTime(seconds) {
+            let minutes = Math.floor(seconds / 60);
+            let remainingSeconds = seconds % 60;
+            return `${pad(minutes)}:${pad(remainingSeconds)}`;
+        }
+
+        function pad(num) {
+            return num < 10 ? `0${num}` : num;
+        }
+    </script>
+</body>
+</html>
